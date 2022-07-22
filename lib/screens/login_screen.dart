@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-// import 'package:instagram_clone/resources/auth_methods.dart';
+import 'package:instagram_clone/resources/auth_methods.dart';
 import 'package:instagram_clone/responsive/mobile_screen_layout.dart';
 import 'package:instagram_clone/responsive/responsive_layout.dart';
 import 'package:instagram_clone/responsive/web_screen_layout.dart';
@@ -29,32 +29,32 @@ class _LoginScreenState extends State<LoginScreen> {
     _passwordController.dispose();
   }
 
-  // void loginUser() async {
-  //   setState(() {
-  //     _isLoading = true;
-  //   });
-  //   String res = await AuthMethods().loginUser(
-  //       email: _emailController.text, password: _passwordController.text);
-  //   if (res == 'success') {
-  //     Navigator.of(context).pushAndRemoveUntil(
-  //         MaterialPageRoute(
-  //           builder: (context) => const ResponsiveLayout(
-  //             mobileScreenLayout: MobileScreenLayout(),
-  //             webScreenLayout: WebScreenLayout(),
-  //           ),
-  //         ),
-  //         (route) => false);
-  //
-  //     setState(() {
-  //       _isLoading = false;
-  //     });
-  //   } else {
-  //     setState(() {
-  //       _isLoading = false;
-  //     });
-  //     showSnackBar(context, res);
-  //   }
-  // }
+  void loginUser() async {
+    setState(() {
+      _isLoading = true;
+    });
+    String res = await AuthMethods().loginUser(
+        email: _emailController.text, password: _passwordController.text);
+    if (res == 'success') {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+            builder: (context) => const ResponsiveLayout(
+              mobileScreenLayout: MobileScreenLayout(),
+              webScreenLayout: WebScreenLayout(),
+            ),
+          ),
+          (route) => false);
+
+      setState(() {
+        _isLoading = false;
+      });
+    } else {
+      setState(() {
+        _isLoading = false;
+      });
+      showSnackBar(context, res);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Container(
-          padding: MediaQuery.of(context).size.width > webScreenSize
+          padding: MediaQuery.of(context).size.width > sizeOfWebScreen
               ? EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width / 3)
               : const EdgeInsets.symmetric(horizontal: 32),
@@ -118,8 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     color: blueColor,
                   ),
                 ),
-                onTap: () {},
-                // loginUser,
+                onTap: loginUser,
               ),
               const SizedBox(
                 height: 12,

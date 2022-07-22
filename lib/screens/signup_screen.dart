@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:instagram_clone/resources/auth_methods.dart';
-// import 'package:instagram_clone/resources/auth_methods.dart';
 import 'package:instagram_clone/responsive/mobile_screen_layout.dart';
 import 'package:instagram_clone/responsive/responsive_layout.dart';
 import 'package:instagram_clone/responsive/web_screen_layout.dart';
@@ -36,41 +35,41 @@ class _SignupScreenState extends State<SignupScreen> {
     _usernameController.dispose();
   }
 
-  // void signUpUser() async {
-  //   // set loading to true
-  //   setState(() {
-  //     _isLoading = true;
-  //   });
-  //
-  //   // signup user using our authmethodds
-  //   String res = await AuthMethods().signUpUser(
-  //       email: _emailController.text,
-  //       password: _passwordController.text,
-  //       username: _usernameController.text,
-  //       bio: _bioController.text,
-  //       file: _image!);
-  //   // if string returned is sucess, user has been created
-  //   if (res == "success") {
-  //     setState(() {
-  //       _isLoading = false;
-  //     });
-  //     // navigate to the home screen
-  //     Navigator.of(context).pushReplacement(
-  //       MaterialPageRoute(
-  //         builder: (context) => const ResponsiveLayout(
-  //           mobileScreenLayout: MobileScreenLayout(),
-  //           webScreenLayout: WebScreenLayout(),
-  //         ),
-  //       ),
-  //     );
-  //   } else {
-  //     setState(() {
-  //       _isLoading = false;
-  //     });
-  //     // show the error
-  //     showSnackBar(context, res);
-  //   }
-  // }
+  void signUpUser() async {
+    // set loading to true
+    setState(() {
+      _isLoading = true;
+    });
+
+    // signup user using our authmethodds
+    String res = await AuthMethods().signUpUser(
+        email: _emailController.text,
+        password: _passwordController.text,
+        username: _usernameController.text,
+        bio: _bioController.text,
+        file: _image!);
+    // if string returned is sucess, user has been created
+    if (res == "success") {
+      setState(() {
+        _isLoading = false;
+      });
+      // navigate to the home screen
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const ResponsiveLayout(
+            mobileScreenLayout: MobileScreenLayout(),
+            webScreenLayout: WebScreenLayout(),
+          ),
+        ),
+      );
+    } else {
+      setState(() {
+        _isLoading = false;
+      });
+      // show the error
+      showSnackBar(context, res);
+    }
+  }
 
   selectImage() async {
     Uint8List im = await pickImage(ImageSource.gallery);
@@ -113,8 +112,8 @@ class _SignupScreenState extends State<SignupScreen> {
                         )
                       : const CircleAvatar(
                           radius: 64,
-                          backgroundImage: NetworkImage(
-                              'https://i.stack.imgur.com/l60Hf.png'),
+                          backgroundImage: AssetImage('assets/profilePic.png'),
+                          //NetworkImage('https://i.stack.imgur.com/l60Hf.png'),
                           backgroundColor: Colors.red,
                         ),
                   Positioned(
@@ -182,16 +181,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     color: blueColor,
                   ),
                 ),
-                onTap: () async {
-                  String res = await AuthMethods().signUpUser(
-                      email: _emailController.text,
-                      password: _passwordController.text,
-                      username: _usernameController.text,
-                      bio: _bioController.text,
-                      file: _image!);
-                  print(res);
-                },
-                // signUpUser,
+                onTap: signUpUser,
               ),
               const SizedBox(
                 height: 12,
