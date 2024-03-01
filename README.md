@@ -1,4 +1,4 @@
-# Instagram Clone Application
+# Social Sket: A social media application
 
 A new Flutter project.
 
